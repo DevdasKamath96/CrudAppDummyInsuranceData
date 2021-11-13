@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>DevdasKamathCode</title>
+
+{% endblock %}
+
+{% block body %}
+<button id="ScrollTopbtn">
+  <img src="/static/img/scroll.png" width="30" height="30">
+</button>
+
+
+<wired-card elevation="5">
+<h1 align='center'> Insurance Premium Data </h1>
+</wired-card>
+<br><br>
+<div align='center'>
+<form >
+  <label for="Region">Choose a Region:</label>
+  <select name='Region' id='Region'>
+    <option value="All" >All</option>
+    <option value="North" >North</option>
+    <option value="South">South</option>
+    <option value="East">East</option>
+    <option value="West">West</option>
+  </select>
+</form>
+</div>
+
+<div class="chartContainer">
+  <canvas id="myChart" ></canvas>
+</div>
+
+
+
+<table class="record_table">
+
+  <thead>
+    <tr>
+      <th><input type="text" class="search-input" placeholder="Project ID"></th>
+      <th><input type="text" name="date" class="search-input" placeholder="DOP"></th>
+      <th><input type="text" class="search-input" placeholder="Customer ID"></th>
+      <th><input type="text" class="search-input" placeholder="Fuel"></th>
+      <th><input type="text" class="search-input" placeholder="Vehicle Segment"></th>
+      <th><input type="text" class="search-input" placeholder="Premium"></th>
+      <th><input type="text" class="search-input" placeholder="BIL"></th>
+      <th><input type="text" class="search-input" placeholder="PIP"></th>
+      <th><input type="text" class="search-input" placeholder="PDL"></th>
+      <th><input type="text" class="search-input" placeholder="Collision"></th>
+      <th><input type="text" class="search-input" placeholder="Comprehensive"></th>
+      <th><input type="text" class="search-input" placeholder="Gender"></th>
+      <th><input type="text" class="search-input" placeholder="Income Group"></th>
+      <th><input type="text" class="search-input" placeholder="Region"></th>
+      <th><input type="text" class="search-input" placeholder="Marital Status"></th>
+      <th>Action</th>
+    </tr>
+  </thead>  
+    {% for d in data %}
+  <tbody>
+    <tr>
+      <td id="pid_row{{d.ProjectID}}">{{d.ProjectID}}</td>
+      <td id="dop_row{{d.ProjectID}}">{{d.DOP}}</td>
+      <td id="cid_row{{d.ProjectID}}">{{d.CustomerID}}</td>
+      <td id="fuel_row{{d.ProjectID}}">{{d.Fuel}}</td>
+      <td id="vs_row{{d.ProjectID}}">{{d.VehicleSegment}}</td>
+      <td id="premium_row{{d.ProjectID}}">{{d.Premium}}</td>
+      <td id="bil_row{{d.ProjectID}}">{{d.BIL}}</td>
+      <td id="pip_row{{d.ProjectID}}">{{d.PIP}}</td>
+      <td id="pdp_row{{d.ProjectID}}">{{d.PDP}}</td>
+      <td id="collision_row{{d.ProjectID}}">{{d.Collision}}</td>
+      <td id="comprehensive_row{{d.ProjectID}}">{{d.Comprehensive}}</td>
+      <td id="gender_row{{d.ProjectID}}">{{d.Gender}}</td>
+      <td id="ig_row{{d.ProjectID}}">{{d.IncomeGroup}}</td>
+      <td id="region_row{{d.ProjectID}}">{{d.Region}}</td>
+      <td id="ms_row{{d.ProjectID}}">{{d.MaritalStatus}}</td>
+      <td>
+        <a onclick="edit_row('{{d.ProjectID}}')" id="edit_button{{d.ProjectID}}" class="edit"><img src="/static/img/write.png" alt="Edit" width="20" height="20"></a>
+        <a onclick="if(confirm('Are you sure you want to Update the changes?')) save_row('{{d.ProjectID}}');" id="save_button{{d.ProjectID}}" class="save"><img src="/static/img/save.png" alt="Save" width="20" height="20"></a>
+        <a href="delete/{{d.ProjectID}}" onclick="return confirm('Are you sure you want to delete this item?')"><img src="/static/img/trash.png" alt="Delete" width="20" height="20"></a>
+      </td>
+    </tr>
+  </tbody>
+    {% endfor %}
+</table>
+<script type="module" src="https://unpkg.com/wired-elements/lib/wired-card.js?module"></script>
+<script type="text/javascript" src="/static/js/table_search.js"></script> 
+<script type="text/javascript" src="/static/js/table_update.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+<script type="text/javascript" src="/static/js/visualization.js"></script>
+
+<script>
+  
+  const ScrollTopbtn = document.querySelector("#ScrollTopbtn");
+  ScrollTopbtn.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
+
+
+
+{% endblock %}
